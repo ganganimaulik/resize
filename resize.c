@@ -93,7 +93,8 @@ int main(int argc, char *argv[])
     // read file into array (without padding) and also handle bottom-up DIB.
     int i, j, k, l, indJ, indI;
     RGBTRIPLE inScanLines[bi.biHeight][bi.biWidth];
-    if(bi.biHeight < 0) { //top-down bmp
+    if(bi.biHeight < 0) { 
+        //top-down bmp
         for(i = 0; i < bi.biHeight; i++) {
             for(j = 0; j < bi.biWidth; j++) {
                 // read RGB triple from infile
@@ -102,13 +103,12 @@ int main(int argc, char *argv[])
             // skip over padding, if any
             fseek(inptr, padding, SEEK_CUR);
         }
-    } else {              //bottom-up bmp
+    } else {              
+        //bottom-up bmp
         for(i = bi.biHeight - 1; i >= 0; i--) {
             for(j = 0; j < bi.biWidth; j++) {
-                RGBTRIPLE triple; //debug
                 // read RGB triple from infile
                 fread(&(inScanLines[i][j]), sizeof(RGBTRIPLE), 1, inptr);
-                triple = inScanLines[i][j]; //debug
             }
             // skip over padding, if any
             fseek(inptr, padding, SEEK_CUR);
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
     int cols = abs(biOut.biHeight);
     RGBTRIPLE outScanLines[cols][biOut.biWidth];
     
-    // iterate over infile's inScanLines
+    // generate output file's scanline array, outScanLines
     for(i = 0; i < abs(bi.biHeight); i++) {
         indI = floor(i*f);
         for(j = 0; j < bi.biWidth; j++) {
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    // iterate over infile's scanlines
+    // write outScanLines array to output file with padding
     for (i = 0; i < abs(biOut.biHeight); i++)
     {
         // iterate over pixels in scanline
