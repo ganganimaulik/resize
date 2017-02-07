@@ -91,8 +91,10 @@ int main(int argc, char *argv[])
     fwrite(&biOut, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // read file into array (without padding) and also handle bottom-up DIB.
+    int cols = abs(biOut.biHeight);
+
     int i, j, k, l, indJ, indI;
-    RGBTRIPLE inScanLines[bi.biHeight][bi.biWidth];
+    RGBTRIPLE inScanLines[cols][bi.biWidth];
     if(bi.biHeight < 0) { 
         //top-down bmp
         for(i = 0; i < abs(bi.biHeight); i++) {
@@ -115,7 +117,6 @@ int main(int argc, char *argv[])
         }
     }
     
-    int cols = abs(biOut.biHeight);
     RGBTRIPLE outScanLines[cols][biOut.biWidth];
     
     // generate output file's scanline array, outScanLines
