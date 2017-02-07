@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
             fwrite(&outScanLines[i][j], sizeof(RGBTRIPLE), 1, outptr);
         }
 
-        // then add it back (to demonstrate how)
+        // padding
         for (k = 0; k < paddingOut; k++)
         {
             fputc(0x00, outptr);
