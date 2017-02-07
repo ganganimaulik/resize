@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     RGBTRIPLE inScanLines[bi.biHeight][bi.biWidth];
     if(bi.biHeight < 0) { 
         //top-down bmp
-        for(i = 0; i < bi.biHeight; i++) {
+        for(i = 0; i < abs(bi.biHeight); i++) {
             for(j = 0; j < bi.biWidth; j++) {
                 // read RGB triple from infile
                 fread(&(inScanLines[i][j]), sizeof(RGBTRIPLE), 1, inptr);
